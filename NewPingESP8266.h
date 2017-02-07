@@ -150,7 +150,6 @@
 #define ONE_PIN_ENABLED true    // Set to "false" to disable one pin mode which saves around 14-26 bytes of binary size. Default=true
 #define ROUNDING_ENABLED false  // Set to "true" to enable distance rounding which also adds 64 bytes to binary size. Default=false
 #define URM37_ENABLED false     // Set to "true" to enable support for the URM37 sensor in PWM mode. Default=false
-#define TIMER_ENABLED true      // Set to "false" to disable the timer ISR (if getting "__vector_7" compile errors set this to false). Default=true
 
 // Probably shouldn't change these values unless you really know what you're doing.
 #define NO_ECHO 0               // Value returned if there's no ping echo within the specified MAX_SENSOR_DISTANCE or max_cm_distance. Default=0
@@ -181,17 +180,9 @@
 	#define PING_OVERHEAD 1
 	#undef  PING_TIMER_OVERHEAD
 	#define PING_TIMER_OVERHEAD 1
-	#undef  TIMER_ENABLED
-	#define TIMER_ENABLED false
 	#define DO_BITWISE false
 #else
 	#define DO_BITWISE true
-#endif
-
-// Disable the timer interrupts when using ATmega128 and all ATtiny microcontrollers.
-#if defined (__AVR_ATmega128__) || defined (__AVR_ATtiny24__) || defined (__AVR_ATtiny44__) || defined (__AVR_ATtiny84__) || defined (__AVR_ATtiny25__) || defined (__AVR_ATtiny45__) || defined (__AVR_ATtiny85__) || defined (__AVR_ATtiny261__) || defined (__AVR_ATtiny461__) || defined (__AVR_ATtiny861__) || defined (__AVR_ATtiny43U__)
-	#undef  TIMER_ENABLED
-	#define TIMER_ENABLED false
 #endif
 
 // Define timers when using ATmega8, ATmega16, ATmega32 and ATmega8535 microcontrollers.
@@ -210,22 +201,10 @@ class NewPingESP8266 {
 		unsigned long ping_median(uint32_t it = 5, unsigned int max_cm_distance = 0);
 		static unsigned int convert_cm(unsigned int echoTime);
 		static unsigned int convert_in(unsigned int echoTime);
-#if TIMER_ENABLED == true
-		void ping_timer(void (*userFunc)(void), unsigned int max_cm_distance = 0);
-		boolean check_timer();
-		unsigned long ping_result;
-		static void timer_us(unsigned int frequency, void (*userFunc)(void));
-		static void timer_ms(unsigned long frequency, void (*userFunc)(void));
-		static void timer_stop();
 #endif
 	private:
 		boolean ping_trigger();
 		void set_max_distance(unsigned int max_cm_distance);
-#if TIMER_ENABLED == true
-		boolean ping_trigger_timer(unsigned int trigger_delay);
-		boolean ping_wait_timer();
-		static void timer_setup();
-		static void timer_ms_cntdwn();
 #endif
 #if DO_BITWISE == true
 		uint32_t _triggerBit;
