@@ -1,5 +1,5 @@
 # NewPingESP8266
-##### NewPing port for ESP8266
+#### NewPing port for ESP8266 (Arduino IDE)
 
 NewPing Library (Ultrasonic Sensors)
 
