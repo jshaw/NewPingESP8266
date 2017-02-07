@@ -201,11 +201,9 @@ class NewPingESP8266 {
 		unsigned long ping_median(uint32_t it = 5, unsigned int max_cm_distance = 0);
 		static unsigned int convert_cm(unsigned int echoTime);
 		static unsigned int convert_in(unsigned int echoTime);
-#endif
 	private:
 		boolean ping_trigger();
 		void set_max_distance(unsigned int max_cm_distance);
-#endif
 #if DO_BITWISE == true
 		uint32_t _triggerBit;
 		uint32_t _echoBit;
