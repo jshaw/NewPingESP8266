@@ -18,3 +18,7 @@ http://forum.pjrc.com/threads/25907-Multiple-HCSR-04-Ultrasonic-sensors-on-teens
 ![Photo](https://raw.githubusercontent.com/PaulStoffregen/NewPing/master/extras/NewPing_photo.jpg)
 
 ![Screenshot](https://raw.githubusercontent.com/PaulStoffregen/NewPing/master/extras/NewPing_screenshot.png)
+
+
+Port was influenced by https://github.com/PaulStoffregen/NewPing/issues/2.
+Also, removed non-compatable ping examples using timers due to incompatability with "Timer interrupt ping methods (won't work with non-AVR, ATmega128 and all ATtiny microcontrollers)" (NewPingESP8266.cpp ln. 198)
